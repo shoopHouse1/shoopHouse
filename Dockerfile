@@ -17,10 +17,12 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Generate Prisma client
-RUN pnpm --filter backend prisma generate
+RUN cd apps/backend && pnpm prisma generate
 
 # Build shared package
 RUN pnpm --filter @shoophouse/shared build
+
+
 
 # Build backend
 RUN pnpm --filter backend build
