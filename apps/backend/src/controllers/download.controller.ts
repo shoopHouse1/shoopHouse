@@ -43,9 +43,9 @@ export async function getDownloads(req: AuthRequest, res: Response): Promise<voi
     orderBy: { createdAt: 'desc' },
   });
 
-  const downloads = orders.flatMap((order) =>
-    order.items.flatMap((item) =>
-      item.downloadTokens.map((token) => ({
+  const downloads = orders.flatMap((order: any) =>
+    order.items.flatMap((item: any) =>
+      item.downloadTokens.map((token: any) => ({
         orderId: order.id,
         orderNumber: order.orderNumber,
         product: item.product,

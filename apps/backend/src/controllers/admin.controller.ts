@@ -443,7 +443,7 @@ export async function regenerateTokens(req: AuthRequest, res: Response): Promise
   }
 
   // Delete existing tokens
-  const itemIds = order.items.map((item) => item.id);
+  const itemIds = order.items.map((item: any) => item.id);
   await prisma.downloadToken.deleteMany({
     where: { orderItemId: { in: itemIds } },
   });
@@ -567,7 +567,7 @@ export async function getSettings(req: AuthRequest, res: Response): Promise<void
   const settings = await prisma.setting.findMany();
 
   const settingsMap: Record<string, any> = {};
-  settings.forEach((s) => {
+  settings.forEach((s: any) => {
     try {
       settingsMap[s.key] = JSON.parse(s.value);
     } catch {
@@ -780,7 +780,7 @@ export async function downloadProducts(req: AuthRequest, res: Response): Promise
   
   const csvContent = [
     headers.join(','),
-    ...products.map(product => [
+    ...products.map((product: any) => [
       product.id,
       '"' + product.titleEn + '"',
       '"' + product.titleAr + '"',
@@ -794,7 +794,7 @@ export async function downloadProducts(req: AuthRequest, res: Response): Promise
       product.seller?.user?.email || '',
       product.createdAt.toISOString(),
       product.updatedAt.toISOString()
-    ].map(field => typeof field === 'string' && field.includes(',') ? '"'+field+'"' : field).join(','))
+    ].map((field: any) => typeof field === 'string' && field.includes(',') ? '"'+field+'"' : field).join(','))
   ].join('\n');
 
   // Set response headers for CSV download

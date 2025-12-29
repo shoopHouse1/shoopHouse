@@ -31,7 +31,7 @@ export async function createOrder(req: AuthRequest, res: Response): Promise<void
   // Calculate total
   let total = 0;
   const orderItems = items.map((item: any) => {
-    const product = products.find((p) => p.id === item.productId);
+    const product = products.find((p: any) => p.id === item.productId);
     if (!product) throw new Error('Product not found');
     const price = product.price * item.quantity;
     total += price;
@@ -207,7 +207,7 @@ export async function getWhatsAppLink(req: AuthRequest, res: Response): Promise<
   });
 
   const itemsText = order.items
-    .map((item) => `- ${item.product.titleEn} (x${item.quantity})`)
+    .map((item: any) => `- ${item.product.titleEn} (x${item.quantity})`)
     .join('\n');
 
   const message = encodeURIComponent(

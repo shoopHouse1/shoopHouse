@@ -69,10 +69,10 @@ export async function getProducts(req: AuthRequest, res: Response): Promise<void
     prisma.product.count({ where }),
   ]);
 
-  const productsWithAvgRating = products.map((product) => {
+  const productsWithAvgRating = products.map((product: any) => {
     const avgRating =
       product.reviews.length > 0
-        ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
+        ? product.reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / product.reviews.length
         : 0;
     return {
       ...product,
@@ -130,7 +130,7 @@ export async function getProductBySlug(req: AuthRequest, res: Response): Promise
 
   const avgRating =
     product.reviews.length > 0
-      ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
+      ? product.reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / product.reviews.length
       : 0;
 
   res.json({
